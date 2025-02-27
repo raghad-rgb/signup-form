@@ -1,41 +1,32 @@
-import './App.css'
+import { useState } from "react";
+import TodoForm from "./components/TodoForm";
+import TodoList from "./components/TodoList";
 
-function App() {
-  return (
-    <div className="d-flex justify-content-center align-items-center flex-grow-1 p-5">
-      <form method="get" className="border rounded-4 w-50 p-4">
-        <h2 className="text-center mb-3">Sign Up</h2>
-        <div className="form-group mb-2">
-          <label htmlFor="name">Enter your Name</label>
-          <input name="name" type="text" id="name" className="form-control" />
-        </div>
-        <div className="form-group mb-2">
-          <label htmlFor="email">Enter your Email</label>
-          <input name="email" type="email" id="email" className="form-control" />
-        </div>
-        <div className="form-group mb-2">
-          <label htmlFor="password">Enter your Password</label>
-          <input name="password" type="password" id="password" className="form-control" />
-        </div>
-        <div className="form-group mb-3">
-          <label className="mb-2">Select your Gender</label>
-          <div>
-            <div className="form-check form-check-inline">
-              <input className="form-check-input" type="radio" name="gender" id="male" value="male" />
-              <label className="form-check-label" htmlFor="male">Male</label>
+export function App() {
+    const [todos, setTodos] = useState([]);
+
+    const addNewTodo = (todo) => {
+        const allTodos = [...todos, todo];
+        setTodos(allTodos);
+    };
+    
+    return (
+        <div className="d-flex justify-content-center align-items-center">
+            <div className="px-5 py-4 mt-5 w-75">
+                <h3 className="text-uppercase text-center fw-bold text-success">
+                    Todo app
+                </h3>
+                <TodoForm addNewTodo={addNewTodo} />
+                {todos.length > 0 ? (
+                    <>
+                        <div className="dropdown-divider my-4" />
+                        <TodoList todos={todos} />
+                    </>
+                ) : null}
             </div>
-            <div className="form-check form-check-inline">
-              <input className="form-check-input" type="radio" name="gender" id="female" value="female" />
-              <label className="form-check-label" htmlFor="female">Female</label>
-            </div>
-          </div>
         </div>
-        <div className="d-flex justify-content-center">
-          <button className="btn btn-success text-uppercase mt-3 px-3 fs-5">Sign Up</button>
-        </div>
-      </form>
-    </div>
-  )
+    );
 }
 
-export default App
+export default App;
+
